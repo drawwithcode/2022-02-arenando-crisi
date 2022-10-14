@@ -79,18 +79,22 @@ class tube {
     switch (this.case) {
       case 1:
         this.x += this.v;
+        this.y -= this.v;
         this.v = this.v + random(-0.05, 0.05);
         break;
       case 2:
         this.x -= this.v;
+        this.y += this.v;
         this.v = this.v + random(-0.05, 0.05);
         break;
       case 3:
         this.y += this.v;
+        this.x += this.v;
         this.v = this.v + random(-0.05, 0.05);
         break;
       case 4:
         this.y -= this.v;
+        this.x -= this.v;
         this.v = this.v + random(-0.05, 0.05);
         break;
     }
