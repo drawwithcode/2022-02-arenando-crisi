@@ -16,7 +16,7 @@ function setup() {
       new tube(
         random(0, width - distbord),
         random(0, height - distbord),
-        round(random(10, 50)),
+        round(random(10, 15)),
         random(1, 4)
       )
     );
@@ -29,15 +29,15 @@ function draw() {
       new tube(
         random(0, width - distbord),
         random(0, height - distbord),
-        round(random(10, 50)),
+        round(random(10, 15)),
         random(1, 4)
       )
     );
   }
-  if (tubi.length > 15 && round(random(0, 50)) == 24) {
+  if (tubi.length > 35 && round(random(0, 50)) == 24) {
     tubi.pop();
   }
-  if (tubi.length > 25 && round(random(0, 50)) == 23) {
+  if (tubi.length > 40 && round(random(0, 50)) == 23) {
     tubi.pop();
   }
 
