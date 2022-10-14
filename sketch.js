@@ -1,11 +1,13 @@
-let tubi = []; //array that contains the objects moving
-let numtub = 0; //initial number of the balls
-let distbord = 20; //distance from the border in wich the ball bounce
+let tubi = [];
+let numtub = 0;
+let distbord = 50;
+let mP = false;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
   background(0, 0, 0);
+  rectMode(CENTER);
 
   numtub = random(2, 5);
 
@@ -35,14 +37,42 @@ function draw() {
   if (tubi.length > 15 && round(random(0, 50)) == 24) {
     tubi.pop();
   }
+  if (tubi.length > 25 && round(random(0, 50)) == 23) {
+    tubi.pop();
+  }
 
   background(0, 0, 0, 5);
   if (frameCount % round(random(15, 25)) == 0) {
     background(0, 0, 0, random(15, 25));
+    textFont("Silkscreen");
+    textSize(17);
+    if (mouseIsPressed == false) {
+      text(
+        "You can grab the squares if you want",
+        random(width),
+        random(height)
+      );
+    } else {
+      text(
+        "sooner or later stop and release them",
+        random(width),
+        random(height)
+      );
+    }
   }
 
   for (let i = 0; i < tubi.length; i++) {
     tubi[i].move();
+
+    if (
+      tubi[i].x < mouseX + 50 &&
+      tubi[i].x > mouseX - 50 &&
+      tubi[i].y < mouseY + 50 &&
+      tubi[i].y > mouseY - 50 &&
+      mouseIsPressed == true
+    ) {
+      tubi[i].case = 5;
+    }
   }
 }
 
@@ -68,7 +98,7 @@ class tube {
   move() {
     fill(this.r, this.g, this.b);
     noStroke();
-    circle(this.x, this.y, this.a);
+    rect(this.x, this.y, this.a);
 
     if (this.count == this.time) {
       this.time = round(random(100, 200));
@@ -92,6 +122,10 @@ class tube {
       case 4:
         this.y -= this.v;
         this.v = this.v + random(-0.05, 0.05);
+        break;
+      case 5:
+        this.x = mouseX;
+        this.y = mouseY;
         break;
     }
 
