@@ -8,6 +8,7 @@ function setup() {
   angleMode(DEGREES);
   background(0, 0, 0);
   rectMode(CENTER);
+  textAlign(CENTER);
 
   numtub = random(2, 5);
 
@@ -49,7 +50,7 @@ function draw() {
     if (mouseIsPressed == false) {
       text(
         "You can grab the squares if you want",
-        random(width),
+        random(distbord, width - distbord),
         random(height)
       );
     } else {
