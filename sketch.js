@@ -2,6 +2,7 @@ let tubi = [];
 let numtub = 0;
 let distbord = 50;
 let mP = false;
+let diam = 100;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -9,6 +10,8 @@ function setup() {
   background(0, 0, 0);
   rectMode(CENTER);
   textAlign(CENTER);
+  textFont("Silkscreen");
+  textSize(17);
 
   numtub = random(2, 5);
 
@@ -45,17 +48,12 @@ function draw() {
   background(0, 0, 0, 5);
   if (frameCount % round(random(15, 25)) == 0) {
     background(0, 0, 0, random(15, 25));
-    textFont("Silkscreen");
-    textSize(17);
+
     if (mouseIsPressed == false) {
-      text(
-        "You can grab the squares if you want",
-        random(distbord, width - distbord),
-        random(height)
-      );
+      text("press to call the squares", random(width), random(height));
     } else {
       text(
-        "sooner or later stop and release them",
+        "before or after release the squares",
         random(width),
         random(height)
       );
@@ -63,17 +61,30 @@ function draw() {
   }
 
   for (let i = 0; i < tubi.length; i++) {
-    tubi[i].move();
+    if (mouseIsPressed == true) {
+      noFill();
+      stroke("white");
+      ellipse(mouseX, mouseY, diam);
+      if (diam <= 0) {
+        diam = 100;
+      } else {
+        diam = diam - 0.02;
+      }
 
-    if (
-      tubi[i].x < mouseX + 50 &&
-      tubi[i].x > mouseX - 50 &&
-      tubi[i].y < mouseY + 50 &&
-      tubi[i].y > mouseY - 50 &&
-      mouseIsPressed == true
-    ) {
-      tubi[i].case = 5;
+      if (tubi[i].x < mouseX - 10) {
+        tubi[i].case = 1;
+      } else if (tubi[i].y > mouseY + 10) {
+        tubi[i].case = 4;
+      } else if (tubi[i].y < mouseY - 10) {
+        tubi[i].case = 3;
+      } else if (tubi[i].x > mouseX + 10) {
+        tubi[i].case = 2;
+      }
+    } else {
+      diam = 100;
     }
+
+    tubi[i].move();
   }
 }
 
